@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>NodeJS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<h4>Nodejs with Mongo Db</h4>
+<h3>Add Quote</h3>
+
+<form action="/quotes/<%= locals.action %>" method="POST" class="form-inline">
+    <input type="hidden" placeholder="id" name="id" value="<%= locals.quote._id %>">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" value="<%= locals.quote.name %>">
+      <% if(errors.name) { %><span style="color:red">Please enter name</span><% } %>
+    </div>
+    <div class="form-group">
+      <label for="quote">Quote</label>
+      <input type="text" name="quote" value="<%= locals.quote.quote %>">
+      <% if(errors.quote) { %><span style="color:red">Please enter quote</span><% } %>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+<div class="container">
+ <div class="col-md-12">
+      <div class="table-responsive">
+         <table id="mytable" class="table table-bordred table-striped">
+            <thead>
+              <th>Name</th>
+              <th>Quote</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+             <% for(var i=0; i<quotes.length; i++) {%>
+              <tr>
+                <td><%= quotes[i].name %></td>
+                <td><%= quotes[i].quote %></td>
+                <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-primary btn-xs" data-title="Edit" href="/edit/<%= quotes[i]._id %>" ><span class="glyphicon glyphicon-pencil"></span></a></p></td>
+                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><a class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" href="/delete/<%= quotes[i]._id %>" ><span class="glyphicon glyphicon-trash"></span></a></p></td>
+              </tr>
+            <% } %>
+            </tbody>
+        </table>
+      </div>  
+</div>
+</body>
+</html>
